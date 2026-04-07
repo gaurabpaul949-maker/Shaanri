@@ -349,36 +349,59 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
     overflow: visible;
   }
   .slide:first-of-type,
-  .slide#hero-slide { padding: 0; }
+  .slide#hero-slide { padding: 0; min-height: 100svh; }
 
   /* ── SHUTTER — keep text readable ── */
   .shutter-name-part { font-size: clamp(2.8rem, 14vw, 5rem); }
 
   /* ── HERO SLIDE ── */
-  #hero-slide { height: 100svh; overflow: hidden; }
+  #hero-slide {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* Keep canvas covering the full hero background */
+  #linewaves-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100svh;
+  }
 
   .hero-inner {
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    padding: 0 20px;
-    padding-top: 80px;
-    gap: 32px;
+    justify-content: flex-start;
+    padding: 100px 20px 56px;
+    gap: 0;
+    width: 100%;
   }
 
   .hero-inner > div:first-child { max-width: 100%; }
 
   /* Reduce h1 size on mobile */
   #hero-slide h1 {
-    font-size: clamp(2rem, 8.5vw, 3rem) !important;
-    margin-bottom: 16px !important;
+    font-size: clamp(1.9rem, 8vw, 2.8rem) !important;
+    margin-bottom: 14px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Tighten paragraph on mobile */
+  #hero-slide p.a3 {
+    font-size: .9rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 24px !important;
   }
 
   /* Stack hero buttons vertically */
   .hero-inner .a4 {
     flex-direction: column;
     gap: 10px !important;
-    margin-bottom: 32px !important;
+    margin-bottom: 28px !important;
   }
   .btn-prim, .btn-ghost {
     width: 100%;
@@ -387,7 +410,13 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   }
 
   /* Stat row: tighten gap */
-  .hero-inner .a5 { gap: 24px !important; }
+  .hero-inner .a5 { gap: 20px !important; }
+
+  /* Reduce eyebrow margin so content fits */
+  #hero-slide .eyebrow { margin-bottom: 12px; }
+
+  /* Hero fade must cover full dynamic height */
+  .hero-fade, .hero-fade-bottom { position: absolute; }
 
   /* Hide brain canvas on mobile — saves space and complexity */
   #brain-wrap { display: none; }
@@ -481,7 +510,7 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
 
 /* ── SMALL MOBILE (≤480px) ── */
 @media (max-width: 480px) {
-  .hero-inner { padding: 0 16px; padding-top: 72px; }
+  .hero-inner { padding: 90px 16px 48px; gap: 0; }
   .slide { padding: 72px 16px 40px; }
   nav { padding: 12px 16px; }
   #hamburger-panel { right: 16px; left: 16px; top: 60px; }
