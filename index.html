@@ -527,6 +527,308 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   ██████████  MOBILE LAUNCH FIXES  ██████████
+   All rules scoped to max-width: 768px / 480px.
+   ZERO impact on desktop layout.
+   ──────────────────────────────────────────────────────────────
+   ROOT CAUSES FIXED:
+   1. html missing overflow-x:hidden → iOS Safari still scrolled
+   2. #hero-slide overflow:visible  → children painted outside
+   3. .hero-inner first-child no width:100% → narrow intrinsic width
+   4. .eyebrow inline-flex + letter-spacing → exceeded viewport
+   5. hero paragraph max-width:460px inline style → not overridden
+   SECONDARY FIXES:
+   6. Work slide selector bug → title row got height:300px
+   7. Stats row flex-wrap → safe on 320px screens
+   8. All slides/containers explicit max-width:100% containment
+   9. About/contact/services grid containment
+   10. General overflow-x safety net on each section
+══════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────
+   FIX 1 — html-level overflow (iOS Safari fix)
+   Without this, body overflow-x:hidden is ignored
+   on iOS/Safari — the browser uses html as
+   the scroll container instead.
+──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 2 — Hero slide: replace overflow:visible
+     with overflow:hidden. height:auto means the
+     hero still grows to fit content; hidden only
+     clips anything that genuinely bleeds outside.
+  ──────────────────────────────────────────── */
+  #hero-slide {
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 3 — Hero inner content div:
+     With align-items:flex-start the first child
+     takes its intrinsic width, not the container
+     width. Force it to fill the full column.
+  ──────────────────────────────────────────── */
+  .hero-inner {
+    align-items: stretch;   /* was flex-start — forces children to full width */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero-inner > div:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    min-width: 0;           /* prevent flex blowout */
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 4 — Eyebrow: inline-flex + .14em
+     letter-spacing + uppercase text = ~370–380px
+     on "ACCEPTING NEW CLIENTS — HOSPITALITY &
+     FITNESS". Wider than 280px available on a
+     320px screen. Switch to block flex + wrap.
+  ──────────────────────────────────────────── */
+  .eyebrow {
+    display: flex;          /* block-level, fills container width */
+    flex-wrap: wrap;        /* text node wraps to next line if needed */
+    max-width: 100%;
+    letter-spacing: .1em;  /* tighten slightly to help text fit */
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 5 — Hero paragraph: override inline
+     max-width:460px so it never exceeds viewport
+  ──────────────────────────────────────────── */
+  #hero-slide p.a3 {
+    max-width: 100% !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 6 — Work slide selector bug:
+     #work-slide .reveal:first-child matched BOTH
+     the title-row reveal AND the left panel reveal
+     (each is :first-child of its own parent),
+     making the title row 300px tall. Fix with
+     direct-child selectors.
+  ──────────────────────────────────────────── */
+  /* Reset any height the old rule set on the title row */
+  #work-slide > .reveal:first-child {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Target only the two card panels */
+  #work-slide > div:last-child > .reveal {
+    height: 300px !important;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 7 — Stats row: allow wrapping so 3 items
+     never force horizontal overflow on narrow screens
+  ──────────────────────────────────────────── */
+  .hero-inner .a5 {
+    flex-wrap: wrap;
+    row-gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 8 — Button row: ensure it never exceeds
+     the container and both buttons are centred
+  ──────────────────────────────────────────── */
+  .hero-inner .a4 {
+    width: 100%;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 9 — Every slide is a safe container:
+     prevent any section from creating horizontal
+     scroll at its own level
+  ──────────────────────────────────────────── */
+  .slide {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 10 — Grid containers inside slides:
+     explicit width so they never exceed viewport
+  ──────────────────────────────────────────── */
+  #about-slide > div,
+  #services-slide > div:last-child,
+  #work-slide > div:last-child,
+  #process-slide > div:last-child,
+  #contact-slide > div {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 11 — About photo container: full width
+     and no min-height overflow
+  ──────────────────────────────────────────── */
+  #about-slide > div > .reveal:first-child {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 12 — Contact info rows: allow wrapping
+     so email address never bleeds on narrow screens
+  ──────────────────────────────────────────── */
+  #contact-slide .reveal > div > div {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  #contact-slide a,
+  #contact-slide span {
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 13 — Services cards: overflow safety
+  ──────────────────────────────────────────── */
+  .svc {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 14 — Hero h1: ensure long gradient text
+     wraps and never overflows
+  ──────────────────────────────────────────── */
+  #hero-slide h1 {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 15 — Nav: safe container on all screens
+  ──────────────────────────────────────────── */
+  nav {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 16 — Testimonial: ensure blockquote
+     doesn't overflow, improve centring
+  ──────────────────────────────────────────── */
+  #testimonial-slide blockquote {
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+  }
+
+  #testimonial-slide > .reveal {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 17 — Chips: wrap properly on mobile
+  ──────────────────────────────────────────── */
+  .chip {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* ────────────────────────────────────────────
+     FIX 18 — Canvas elements: hard cap to viewport
+     (safety net in case JS sets explicit px widths)
+  ──────────────────────────────────────────── */
+  canvas:not(#linewaves-canvas) {
+    max-width: 100% !important;
+  }
+}
+
+/* ────────────────────────────────────────────
+   SMALL MOBILE ADDITIONS (≤480px)
+   Supplement, not replace, the existing 480px block
+──────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Hero heading: tighten letter-spacing for narrow screens */
+  #hero-slide h1 {
+    letter-spacing: -.025em !important;
+  }
+
+  /* Eyebrow: even tighter letter-spacing at 320px */
+  .eyebrow {
+    font-size: .62rem;
+    letter-spacing: .08em;
+  }
+
+  /* Stats: wrap cleanly and tighten gap */
+  .hero-inner .a5 {
+    gap: 16px !important;
+    row-gap: 12px !important;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons: ensure comfortable height */
+  .btn-prim, .btn-ghost {
+    padding: 14px 16px !important;
+    font-size: .76rem !important;
+  }
+
+  /* Shutter text: prevent overflow on very small screens */
+  .shutter-name-part {
+    font-size: clamp(2.2rem, 12vw, 4rem);
+  }
+
+  /* Process section: extra bottom padding for readability */
+  #process-slide {
+    padding-bottom: 60px !important;
+  }
+
+  /* Contact: stack social icons neatly */
+  #contact-slide .reveal > div:last-child > div {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Work list items: don't overflow on narrow screens */
+  .litem {
+    font-size: .74rem !important;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* About chips: ensure they wrap correctly */
+  #about-slide [style*="flex-wrap:wrap"],
+  #about-slide [style*="flex-wrap: wrap"] {
+    max-width: 100%;
+  }
+}
+
 </style>
 </head>
 <body>
