@@ -527,6 +527,14 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   }
 }
 
+/* ── MOBILE-ONLY LINE BREAK UTILITY ──
+   .mob-br shows only on mobile so "More Revenue."
+   wraps to its own line without touching desktop h1. */
+.mob-br { display: none; }
+@media (max-width: 768px) {
+  .mob-br { display: block; }
+}
+
 /* ══════════════════════════════════════════════════════════════
    ██████████  MOBILE LAUNCH FIXES  ██████████
    All rules scoped to max-width: 768px / 480px.
@@ -556,6 +564,21 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   html {
     overflow-x: hidden;
     width: 100%;
+  }
+
+  /* ────────────────────────────────────────────
+     MOBILE NAV BAR — always frosted & visible.
+     On desktop the nav is transparent until .scrolled
+     fires; on mobile it must always be a solid bar
+     so "Shaanri." is never hidden by page content
+     when the user scrolls. Zero impact on desktop.
+  ──────────────────────────────────────────── */
+  nav {
+    background: rgba(247,245,242,.97) !important;
+    border-bottom: 1px solid var(--border) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 1px 24px rgba(0,0,0,.06) !important;
   }
 
   /* ────────────────────────────────────────────
@@ -911,10 +934,10 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
     <div style="flex:1;max-width:600px">
       <div class="eyebrow a1"><span class="eyebrow-dot"></span>Accepting New Clients — Hospitality &amp; Fitness</div>
       <h1 class="a2 blur-text" data-bt-delay="0" data-bt-by="words" data-bt-dir="top" style="font-size:clamp(2.6rem,5vw,4.6rem);font-weight:900;line-height:1.04;letter-spacing:-.03em;margin-bottom:20px;color:var(--ink)">
-        More Customers.<br/><span class="gt">More Bookings. More Revenue.</span>
+        More Customers.<br/><span class="gt">More Bookings.<br class="mob-br"/> More Revenue.</span>
       </h1>
       <p class="a3 blur-text" data-bt-delay="300" data-bt-by="words" data-bt-dir="top" style="font-size:1rem;line-height:1.82;color:var(--ink2);font-weight:400;margin-bottom:34px;max-width:460px">
-        I'm <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I build high-converting websites and smart automations for restaurants, cafes, gyms, and guest houses. Trusted by businesses across Ireland and beyond.
+        I'm <strong style="color:var(--violet);font-weight:700">Gaurav</strong>, founder of <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I build high-converting websites and smart automations for restaurants, cafes, gyms, and guest houses. Trusted by businesses across Ireland and beyond.
       </p>
       <div class="a4" style="display:flex;gap:14px;margin-bottom:44px">
         <a href="#contact-slide" class="btn-prim">Get a Free Website Audit</a>
@@ -944,7 +967,7 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 38%,rgba(95,251,241,.12) 0%,transparent 55%),radial-gradient(ellipse at 68% 68%,rgba(250,178,255,.1) 0%,transparent 55%)"></div>
         <!-- cursor-follow spotlight -->
         <div id="about-spotlight" style="position:absolute;width:200px;height:200px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(98,0,255,.10) 0%,transparent 70%);transition:opacity .3s;opacity:0"></div>
-      <div id="about-g" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:106px;height:106px;border-radius:50%;background:linear-gradient(135deg,#5ffbf1,#fab2ff,#6200ff);display:flex;align-items:center;justify-content:center;font-size:2.6rem;font-weight:900;color:#fff;box-shadow:0 0 0 8px rgba(247,245,242,.95),0 0 0 10px rgba(98,0,255,.12),0 16px 50px rgba(98,0,255,.18);transition:transform .14s ease,box-shadow .25s ease;will-change:transform">S</div>
+      <div id="about-g" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:106px;height:106px;border-radius:50%;background:linear-gradient(135deg,#5ffbf1,#fab2ff,#6200ff);display:flex;align-items:center;justify-content:center;font-size:2.6rem;font-weight:900;color:#fff;box-shadow:0 0 0 8px rgba(247,245,242,.95),0 0 0 10px rgba(98,0,255,.12),0 16px 50px rgba(98,0,255,.18);transition:transform .14s ease,box-shadow .25s ease;will-change:transform">G</div>
         <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2.5px solid var(--violet);border-left:2.5px solid var(--violet);border-radius:2px 0 0 0"></div>
         <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:2.5px solid var(--teal);border-right:2.5px solid var(--teal);border-radius:0 2px 0 0"></div>
         <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:2.5px solid var(--teal);border-left:2.5px solid var(--teal);border-radius:0 0 0 2px"></div>
@@ -955,7 +978,7 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
       <div class="stag">About</div>
       <h2 data-sf>Results first,<br/><span class="gt">everything else second</span></h2>
       <div class="divider"></div>
-      <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:16px">I'm <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I work with hospitality and fitness businesses who need their website to actively bring in customers. Every decision I make — from layout to loading speed — is tied to one question: <strong style="color:var(--violet);font-weight:700">will this get you more bookings?</strong></p>
+      <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:16px">I'm <strong style="color:var(--violet);font-weight:700">Gaurav</strong>, the founder behind <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I work with hospitality and fitness businesses who need their website to actively bring in customers. Every decision I make — from layout to loading speed — is tied to one question: <strong style="color:var(--violet);font-weight:700">will this get you more bookings?</strong></p>
       <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:26px">I've worked with restaurants, cafes, gyms, and guest houses — especially across Ireland — combining conversion-focused design with smart automation to build digital presences that fill seats, rooms, and class schedules.</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <span class="chip">Web Design</span><span class="chip">SEO</span><span class="chip">Booking Systems</span><span class="chip">Chatbots</span><span class="chip">Automation</span><span class="chip">Conversion Strategy</span><span class="chip">Speed Optimisation</span><span class="chip">Analytics</span>
