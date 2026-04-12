@@ -4,6 +4,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<!-- ── INSTANT DARK MODE — runs before CSS renders, eliminates FOUC ── -->
+<script>
+  if(localStorage.getItem('shaanri-dark')==='true')
+    document.documentElement.classList.add('dark');
+</script>
 <style>
 /* ── RESET & BASE ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;cursor:none!important}
@@ -13,6 +18,114 @@
   --ink:#1a1a1a;--ink2:#4a4a4a;--ink3:#888;
   --border:rgba(26,26,26,0.1);--border-hover:rgba(98,0,255,0.25);
 }
+/* ── GLOBAL DARK MODE — toggled by adding .dark to <html> ── */
+html.dark{
+  --bg:#111111;
+  --bg2:#1a1a1a;
+  --bg3:#222222;
+  --ink:#f0f0f0;
+  --ink2:#b0b0b0;
+  --ink3:#666666;
+  --border:rgba(255,255,255,0.10);
+  --border-hover:rgba(98,0,255,0.40);
+}
+
+/* ── Hardcoded-colour overrides ── */
+/* Body & global */
+html.dark body                         { background:#111111; color:#f0f0f0; }
+html.dark #page-reveal                 { background:#111111; }
+
+/* Scrollbar */
+html.dark ::-webkit-scrollbar-thumb   { background:rgba(98,0,255,.45); }
+
+/* Scanline — keep it but lighter in dark */
+html.dark body::after                  { background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,0.004) 3px,rgba(255,255,255,0.004) 4px); }
+
+/* Nav */
+html.dark nav.scrolled                 { background:rgba(17,17,17,.96)!important; border-bottom-color:rgba(255,255,255,.08)!important; }
+html.dark .logo                        { color:#f0f0f0!important; }
+html.dark .pill-nav                    { background:rgba(30,30,30,.92)!important; border-color:rgba(255,255,255,.1)!important; }
+html.dark .pill-link                   { color:rgba(255,255,255,.6)!important; }
+html.dark .pill-link.pill-active       { color:#fff!important; }
+html.dark .hamburger-btn               { background:rgba(30,30,30,.92)!important; border-color:rgba(255,255,255,.1)!important; }
+html.dark .hamburger-btn span          { background:#f0f0f0!important; }
+html.dark #hamburger-panel             { background:rgba(17,17,17,.97)!important; border-color:rgba(255,255,255,.1)!important; box-shadow:0 20px 60px rgba(0,0,0,.45)!important; }
+html.dark .ham-link                    { color:rgba(255,255,255,.65)!important; }
+html.dark .ham-link:hover              { background:rgba(98,0,255,.12)!important; color:var(--violet)!important; }
+html.dark .ham-divider                 { background:rgba(255,255,255,.08)!important; }
+
+/* Hero */
+html.dark .hero-fade                   { background:linear-gradient(105deg,rgba(17,17,17,.97) 0%,rgba(17,17,17,.82) 38%,rgba(17,17,17,.35) 62%,rgba(17,17,17,.05) 100%)!important; }
+html.dark .hero-fade-bottom            { background:linear-gradient(to top,#111111,transparent)!important; }
+html.dark h1                           { color:var(--ink)!important; }
+
+/* Buttons */
+html.dark .btn-ghost                   { border-color:rgba(255,255,255,.16)!important; color:#d0d0d0!important; }
+html.dark .btn-ghost:hover             { border-color:var(--violet)!important; color:var(--violet)!important; }
+
+/* About slide */
+html.dark #about-photo                 { background:#1c1c1c!important; border-color:rgba(255,255,255,.08)!important; box-shadow:0 8px 32px rgba(0,0,0,.28)!important; }
+html.dark #about-g                     { box-shadow:0 0 0 8px rgba(17,17,17,.95),0 0 0 10px rgba(98,0,255,.22),0 16px 50px rgba(98,0,255,.28)!important; }
+/* Corner accents */
+html.dark #about-photo > div:nth-child(4),
+html.dark #about-photo > div:nth-child(5),
+html.dark #about-photo > div:nth-child(6),
+html.dark #about-photo > div:nth-child(7) { opacity:.6; }
+
+/* Chips */
+html.dark .chip                        { border-color:rgba(255,255,255,.12)!important; color:#888!important; background:transparent!important; }
+html.dark .chip:hover                  { background:rgba(98,0,255,.12)!important; color:var(--violet)!important; border-color:rgba(98,0,255,.3)!important; }
+
+/* Service cards */
+html.dark .svc                         { background:#1a1a1a!important; border-color:rgba(255,255,255,.08)!important; }
+html.dark .svc:hover                   { border-color:rgba(98,0,255,.3)!important; box-shadow:0 16px 48px rgba(98,0,255,.12)!important; }
+html.dark .svc-icon                    { border-color:rgba(255,255,255,.1)!important; }
+html.dark .svc:hover .svc-icon        { border-color:rgba(98,0,255,.35)!important; }
+html.dark .svc-num                     { color:rgba(98,0,255,.08)!important; }
+html.dark h3                           { color:var(--ink)!important; }
+
+/* Process slide */
+html.dark #process-slide               { background:var(--bg2)!important; }
+html.dark .pcircle                     { border-color:rgba(98,0,255,.3)!important; color:#c4b5fd!important; }
+html.dark .pcircle:hover               { background:rgba(98,0,255,.1)!important; }
+html.dark h4                           { color:var(--ink)!important; }
+/* Connecting line between process steps */
+html.dark #process-slide [style*="position:absolute"][style*="height:1px"] {
+  background:linear-gradient(to right,transparent,rgba(98,0,255,.35),transparent)!important;
+}
+
+/* Testimonial */
+html.dark #testimonial-slide           { background:var(--bg)!important; }
+html.dark #testimonial-slide > .reveal:first-child {
+  color:rgba(98,0,255,.18)!important;
+}
+html.dark blockquote                   { color:#b0b0b0!important; }
+/* Avatar ring */
+html.dark #testimonial-slide .reveal:last-child > div:first-child {
+  box-shadow:0 0 0 2px rgba(255,255,255,.06);
+}
+
+/* Contact slide */
+html.dark #contact-slide               { background:var(--bg2)!important; }
+html.dark label                        { color:var(--ink3)!important; }
+html.dark input,html.dark textarea     { background:#1c1c1c!important; border-color:rgba(255,255,255,.1)!important; color:#f0f0f0!important; box-shadow:0 2px 8px rgba(0,0,0,.2)!important; }
+html.dark input:focus,
+html.dark textarea:focus               { border-color:var(--violet)!important; box-shadow:0 0 0 3px rgba(98,0,255,.15)!important; }
+html.dark input::placeholder,
+html.dark textarea::placeholder        { color:#444!important; }
+/* Contact info icon circles */
+html.dark #contact-slide .reveal > div > div > div:first-child,
+html.dark #contact-slide .reveal > div > div > div[style*="36px"] {
+  border-color:rgba(255,255,255,.1)!important; background:#1c1c1c!important;
+}
+html.dark .soc                         { border-color:rgba(255,255,255,.1)!important; color:#666!important; }
+html.dark .soc:hover                   { border-color:var(--violet)!important; color:var(--violet)!important; background:rgba(98,0,255,.08)!important; }
+html.dark #send-btn                    { box-shadow:0 6px 24px rgba(98,0,255,.5)!important; }
+html.dark #form-feedback[style*="rgba(29,179"]  { background:rgba(29,179,126,.18)!important; }
+html.dark #form-feedback[style*="rgba(255,80"]  { background:rgba(255,80,80,.14)!important; }
+/* Footer text */
+html.dark #contact-slide > div > div.reveal > div[style*="margin-top"] { color:#444!important; }
+
 html{
   scroll-snap-type:y mandatory;
   scroll-behavior:smooth;
@@ -336,6 +449,8 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
 
   /* Hide desktop CTA button — hamburger panel has one */
   #nav-cta-btn { display: none; }
+  /* Keep dark toggle in nav but make it more compact */
+  #dm-toggle-nav .dm-toggle-label { display: none; }
 
   /* ── SLIDE DOTS — hide on mobile (too small) ── */
   #slide-dots { display: none; }
@@ -527,329 +642,390 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   }
 }
 
-/* ── MOBILE-ONLY LINE BREAK UTILITY ──
-   .mob-br shows only on mobile so "More Revenue."
-   wraps to its own line without touching desktop h1. */
-.mob-br { display: none; }
-@media (max-width: 768px) {
-  .mob-br { display: block; }
+/* ══════════════════════════════════════════════════
+   PORTFOLIO / PRODUCT CAROUSEL
+   Used inside #work-slide only
+══════════════════════════════════════════════════ */
+
+/* Work slide flex column override */
+#work-slide { display: flex; flex-direction: column; }
+
+/* Outer wrapper — fills remaining space after heading */
+.pf-outer {
+  flex: 1;
+  min-height: 0;
+  position: relative;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   ██████████  MOBILE LAUNCH FIXES  ██████████
-   All rules scoped to max-width: 768px / 480px.
-   ZERO impact on desktop layout.
-   ──────────────────────────────────────────────────────────────
-   ROOT CAUSES FIXED:
-   1. html missing overflow-x:hidden → iOS Safari still scrolled
-   2. #hero-slide overflow:visible  → children painted outside
-   3. .hero-inner first-child no width:100% → narrow intrinsic width
-   4. .eyebrow inline-flex + letter-spacing → exceeded viewport
-   5. hero paragraph max-width:460px inline style → not overridden
-   SECONDARY FIXES:
-   6. Work slide selector bug → title row got height:300px
-   7. Stats row flex-wrap → safe on 320px screens
-   8. All slides/containers explicit max-width:100% containment
-   9. About/contact/services grid containment
-   10. General overflow-x safety net on each section
-══════════════════════════════════════════════════════════════ */
-
-/* ────────────────────────────────────────────
-   FIX 1 — html-level overflow (iOS Safari fix)
-   Without this, body overflow-x:hidden is ignored
-   on iOS/Safari — the browser uses html as
-   the scroll container instead.
-──────────────────────────────────────────── */
-@media (max-width: 768px) {
-  html {
-    overflow-x: hidden;
-    width: 100%;
-  }
-
-  /* ────────────────────────────────────────────
-     MOBILE NAV BAR — always frosted & visible.
-     On desktop the nav is transparent until .scrolled
-     fires; on mobile it must always be a solid bar
-     so "Shaanri." is never hidden by page content
-     when the user scrolls. Zero impact on desktop.
-  ──────────────────────────────────────────── */
-  nav {
-    background: rgba(247,245,242,.97) !important;
-    border-bottom: 1px solid var(--border) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    box-shadow: 0 1px 24px rgba(0,0,0,.06) !important;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 2 — Hero slide: replace overflow:visible
-     with overflow:hidden. height:auto means the
-     hero still grows to fit content; hidden only
-     clips anything that genuinely bleeds outside.
-  ──────────────────────────────────────────── */
-  #hero-slide {
-    overflow: hidden;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 3 — Hero inner content div:
-     With align-items:flex-start the first child
-     takes its intrinsic width, not the container
-     width. Force it to fill the full column.
-  ──────────────────────────────────────────── */
-  .hero-inner {
-    align-items: stretch;   /* was flex-start — forces children to full width */
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .hero-inner > div:first-child {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-    min-width: 0;           /* prevent flex blowout */
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 4 — Eyebrow: inline-flex + .14em
-     letter-spacing + uppercase text = ~370–380px
-     on "ACCEPTING NEW CLIENTS — HOSPITALITY &
-     FITNESS". Wider than 280px available on a
-     320px screen. Switch to block flex + wrap.
-  ──────────────────────────────────────────── */
-  .eyebrow {
-    display: flex;          /* block-level, fills container width */
-    flex-wrap: wrap;        /* text node wraps to next line if needed */
-    max-width: 100%;
-    letter-spacing: .1em;  /* tighten slightly to help text fit */
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 5 — Hero paragraph: override inline
-     max-width:460px so it never exceeds viewport
-  ──────────────────────────────────────────── */
-  #hero-slide p.a3 {
-    max-width: 100% !important;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 6 — Work slide selector bug:
-     #work-slide .reveal:first-child matched BOTH
-     the title-row reveal AND the left panel reveal
-     (each is :first-child of its own parent),
-     making the title row 300px tall. Fix with
-     direct-child selectors.
-  ──────────────────────────────────────────── */
-  /* Reset any height the old rule set on the title row */
-  #work-slide > .reveal:first-child {
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
-  /* Target only the two card panels */
-  #work-slide > div:last-child > .reveal {
-    height: 300px !important;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 7 — Stats row: allow wrapping so 3 items
-     never force horizontal overflow on narrow screens
-  ──────────────────────────────────────────── */
-  .hero-inner .a5 {
-    flex-wrap: wrap;
-    row-gap: 14px;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 8 — Button row: ensure it never exceeds
-     the container and both buttons are centred
-  ──────────────────────────────────────────── */
-  .hero-inner .a4 {
-    width: 100%;
-    box-sizing: border-box;
-    align-items: stretch;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 9 — Every slide is a safe container:
-     prevent any section from creating horizontal
-     scroll at its own level
-  ──────────────────────────────────────────── */
-  .slide {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 10 — Grid containers inside slides:
-     explicit width so they never exceed viewport
-  ──────────────────────────────────────────── */
-  #about-slide > div,
-  #services-slide > div:last-child,
-  #work-slide > div:last-child,
-  #process-slide > div:last-child,
-  #contact-slide > div {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 11 — About photo container: full width
-     and no min-height overflow
-  ──────────────────────────────────────────── */
-  #about-slide > div > .reveal:first-child {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 12 — Contact info rows: allow wrapping
-     so email address never bleeds on narrow screens
-  ──────────────────────────────────────────── */
-  #contact-slide .reveal > div > div {
-    flex-wrap: wrap;
-    min-width: 0;
-  }
-
-  #contact-slide a,
-  #contact-slide span {
-    word-break: break-all;
-    overflow-wrap: break-word;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 13 — Services cards: overflow safety
-  ──────────────────────────────────────────── */
-  .svc {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 14 — Hero h1: ensure long gradient text
-     wraps and never overflows
-  ──────────────────────────────────────────── */
-  #hero-slide h1 {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 15 — Nav: safe container on all screens
-  ──────────────────────────────────────────── */
-  nav {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 16 — Testimonial: ensure blockquote
-     doesn't overflow, improve centring
-  ──────────────────────────────────────────── */
-  #testimonial-slide blockquote {
-    max-width: 100%;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-  }
-
-  #testimonial-slide > .reveal {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 17 — Chips: wrap properly on mobile
-  ──────────────────────────────────────────── */
-  .chip {
-    white-space: normal;
-    word-break: break-word;
-  }
-
-  /* ────────────────────────────────────────────
-     FIX 18 — Canvas elements: hard cap to viewport
-     (safety net in case JS sets explicit px widths)
-  ──────────────────────────────────────────── */
-  canvas:not(#linewaves-canvas) {
-    max-width: 100% !important;
-  }
+/* Main carousel box */
+.pf-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: min(430px, 50vh);
+  background: var(--bg2);
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.10);
+  overflow: hidden;
+  transition: background .45s ease, box-shadow .45s ease;
 }
 
-/* ────────────────────────────────────────────
-   SMALL MOBILE ADDITIONS (≤480px)
-   Supplement, not replace, the existing 480px block
-──────────────────────────────────────────── */
+/* Inner track — same role as .slide in original */
+.pf-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+/* Cards */
+.pf-item {
+  width: 190px;
+  height: 70%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 20px;
+  box-shadow: 0 24px 52px rgba(0,0,0,.38);
+  background-position: center;
+  background-size: cover;
+  /* ── PERF: specify only changed properties — never use "transition:all" ── */
+  transition:
+    left      .52s cubic-bezier(.25,.46,.45,.94),
+    top       .52s cubic-bezier(.25,.46,.45,.94),
+    width     .52s cubic-bezier(.25,.46,.45,.94),
+    height    .52s cubic-bezier(.25,.46,.45,.94),
+    opacity   .52s cubic-bezier(.25,.46,.45,.94),
+    transform .52s cubic-bezier(.25,.46,.45,.94),
+    box-shadow .52s cubic-bezier(.25,.46,.45,.94),
+    border-radius .52s cubic-bezier(.25,.46,.45,.94);
+  overflow: hidden;
+  cursor: pointer;
+  /* GPU-promote only the layer, not individual properties */
+  will-change: left, transform, opacity;
+}
+
+/* Active positions: items 1 & 2 fill the box */
+.pf-slide .pf-item:nth-child(1),
+.pf-slide .pf-item:nth-child(2) {
+  top: 0; left: 0;
+  transform: none;
+  width: 100%; height: 100%;
+  border-radius: 20px;
+  cursor: default;
+}
+
+/* Side thumbnails — positioned progressively to the right */
+.pf-slide .pf-item:nth-child(3) { left: 50%; }
+.pf-slide .pf-item:nth-child(4) { left: calc(50% + 210px); }
+.pf-slide .pf-item:nth-child(5) { left: calc(50% + 420px); }
+.pf-slide .pf-item:nth-child(n+6) { left: calc(50% + 630px); opacity: 0; pointer-events: none; }
+
+/* Hover: scale + brightness on side thumbnails */
+.pf-slide .pf-item:nth-child(n+3):hover {
+  transform: translateY(-54%) scale(1.055);
+  filter: brightness(1.13);
+  box-shadow: 0 28px 60px rgba(0,0,0,.45);
+}
+
+/* ── Gradient overlays ── */
+/* Active item: dark from left → transparent right (space for text) */
+.pf-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    108deg,
+    rgba(0,0,0,.62) 0%,
+    rgba(0,0,0,.28) 48%,
+    rgba(0,0,0,.04) 100%
+  );
+  pointer-events: none;
+  transition: background .52s;
+}
+/* Side thumbnails: dark from bottom */
+.pf-slide .pf-item:nth-child(n+3)::after {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.68) 0%,
+    rgba(0,0,0,.08) 60%,
+    transparent 100%
+  );
+}
+
+/* ── Text content (shown only on active item) ── */
+.pf-content {
+  position: absolute;
+  top: 50%;
+  left: 52px;
+  width: min(340px, 44%);
+  transform: translateY(-50%);
+  color: #fff;
+  z-index: 2;
+  display: none;
+  font-family: 'Inter', sans-serif;
+}
+.pf-slide .pf-item:nth-child(2) .pf-content { display: block; }
+/* Show content when JS marks item as active */
+.pf-item.pf-active .pf-content { display: block; }
+
+/* Badge */
+.pf-badge {
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+/* Title */
+.pf-name {
+  font-size: clamp(1rem, 2.1vw, 1.72rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+
+/* Description */
+.pf-desc {
+  font-size: .8rem;
+  line-height: 1.74;
+  color: rgba(255,255,255,.84);
+  margin-bottom: 22px;
+}
+
+/* CTA button */
+.pf-cta {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: rgba(255,255,255,.17);
+  border: 1.5px solid rgba(255,255,255,.38);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .3s, border-color .3s, transform .3s, box-shadow .3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.pf-cta:hover {
+  background: rgba(255,255,255,.3);
+  border-color: rgba(255,255,255,.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* ── Content animate-in: CLASS-BASED (not CSS animation) so it
+      doesn't restart on every DOM shuffle ── */
+.pf-badge, .pf-name, .pf-desc, .pf-cta {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(8px);
+  transition:
+    opacity  .55s cubic-bezier(.25,.46,.45,.94),
+    transform .55s cubic-bezier(.16,1,.3,1),
+    filter   .55s cubic-bezier(.25,.46,.45,.94);
+}
+/* Staggered delays on the ACTIVE card only */
+.pf-item.pf-active .pf-badge {
+  opacity:1; transform:none; filter:none; transition-delay:.05s;
+}
+.pf-item.pf-active .pf-name  {
+  opacity:1; transform:none; filter:none; transition-delay:.18s;
+}
+.pf-item.pf-active .pf-desc  {
+  opacity:1; transform:none; filter:none; transition-delay:.30s;
+}
+.pf-item.pf-active .pf-cta   {
+  opacity:1; transform:none; filter:none; transition-delay:.42s;
+}
+
+/* Remove old CSS keyframe — no longer needed */
+/* @keyframes pfUp replaced by class transitions above */
+
+/* Subtle scale-up when new active card appears */
+@keyframes pfZoomIn {
+  from { transform: scale(1.03); filter: brightness(1.1); }
+  to   { transform: scale(1);    filter: brightness(1); }
+}
+.pf-item.pf-active {
+  animation: pfZoomIn .52s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+/* ── Prev / Next navigation buttons (inside carousel, bottom-left) ── */
+.pf-nav {
+  position: absolute;
+  bottom: 22px;
+  left: 52px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+.pf-nav-btn {
+  width: 38px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1.5px solid rgba(255,255,255,.32);
+  background: rgba(255,255,255,.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #fff;
+  font-size: .8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
+  padding: 0 0 0 1px;
+}
+.pf-nav-btn.pf-prev-btn { padding: 0 1px 0 0; }
+.pf-nav-btn:hover {
+  background: rgba(255,255,255,.28);
+  border-color: rgba(255,255,255,.55);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+.pf-nav-btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.3); }
+.pf-nav-btn:active { transform: scale(1.02); }
+
+/* ── Smooth theme transitions — applied ONLY after first toggle, never on load ── */
+body.theme-ready,
+body.theme-ready nav,
+body.theme-ready #hamburger-panel,
+body.theme-ready .svc,
+body.theme-ready input,
+body.theme-ready textarea,
+body.theme-ready .chip,
+body.theme-ready .slide,
+body.theme-ready .btn-ghost,
+body.theme-ready #about-photo,
+body.theme-ready .pcircle,
+body.theme-ready .soc,
+body.theme-ready label {
+  transition: background .38s ease, color .38s ease, border-color .38s ease, box-shadow .38s ease !important;
+}
+
+/* ── Dark mode toggle switch (in nav) ── */
+.dm-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.dm-toggle-label {
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  transition: color .35s;
+  user-select: none;
+  white-space: nowrap;
+}
+.dm-toggle-btn {
+  position: relative;
+  width: 42px;
+  height: 23px;
+  border-radius: 12px;
+  background: rgba(26,26,26,.1);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: background .35s, border-color .35s, box-shadow .35s;
+  flex-shrink: 0;
+  padding: 0;
+  outline: none;
+}
+.dm-toggle-btn::after {
+  content: '☀';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--ink3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0; /* icon hidden, just the background pill */
+  transition: transform .38s cubic-bezier(.34,1.56,.64,1), background .35s;
+}
+html.dark .dm-toggle-btn {
+  background: var(--violet);
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px rgba(98,0,255,.18);
+}
+html.dark .dm-toggle-btn::after {
+  transform: translateX(19px);
+  background: #fff;
+}
+.dm-toggle-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(98,0,255,.28);
+}
+
+/* ── Also update work-section label when dark ── */
+html.dark .pf-dm-wrap .dm-toggle-label { color: #666 !important; }
+
+/* ── Work-section toggle wrapper (mirror of nav toggle) ── */
+.pf-dm-wrap {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+.dm-toggle-btn.on {
+  background: var(--violet) !important;
+  border-color: var(--violet) !important;
+  box-shadow: 0 0 0 3px rgba(98,0,255,.18);
+}
+.dm-toggle-btn.on::after {
+  transform: translateX(19px);
+  background: #fff;
+}
+.pf-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(to right, var(--violet), var(--teal));
+  border-radius: 0 2px 2px 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: width linear;
+}
+
+/* ── Mobile overrides ── */
+@media (max-width: 768px) {
+  .pf-content { left: 22px; width: calc(100% - 44px); top: 45%; }
+  .pf-name { font-size: clamp(.9rem, 3.8vw, 1.4rem); }
+  .pf-desc { font-size: .74rem; line-height: 1.62;
+             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .pf-cta { padding: 9px 18px; font-size: .68rem; min-height: 44px; display: flex; align-items: center; width: fit-content; }
+  .pf-nav { left: 22px; bottom: 14px; }
+  .pf-nav-btn { width: 40px; height: 38px; } /* larger tap target on mobile */
+  .pf-slide .pf-item:nth-child(3) { left: 54%; }
+  .pf-slide .pf-item:nth-child(4) { left: calc(54% + 140px); }
+  .pf-slide .pf-item:nth-child(5) { left: calc(54% + 280px); opacity: 0; }
+  .pf-slide .pf-item:nth-child(n+5) { left: calc(54% + 280px); opacity: 0; pointer-events: none; }
+  .pf-item { width: 130px; }
+}
 @media (max-width: 480px) {
-
-  /* Hero heading: tighten letter-spacing for narrow screens */
-  #hero-slide h1 {
-    letter-spacing: -.025em !important;
-  }
-
-  /* Eyebrow: even tighter letter-spacing at 320px */
-  .eyebrow {
-    font-size: .62rem;
-    letter-spacing: .08em;
-  }
-
-  /* Stats: wrap cleanly and tighten gap */
-  .hero-inner .a5 {
-    gap: 16px !important;
-    row-gap: 12px !important;
-    flex-wrap: wrap;
-  }
-
-  /* Buttons: ensure comfortable height */
-  .btn-prim, .btn-ghost {
-    padding: 14px 16px !important;
-    font-size: .76rem !important;
-  }
-
-  /* Shutter text: prevent overflow on very small screens */
-  .shutter-name-part {
-    font-size: clamp(2.2rem, 12vw, 4rem);
-  }
-
-  /* Process section: extra bottom padding for readability */
-  #process-slide {
-    padding-bottom: 60px !important;
-  }
-
-  /* Contact: stack social icons neatly */
-  #contact-slide .reveal > div:last-child > div {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  /* Work list items: don't overflow on narrow screens */
-  .litem {
-    font-size: .74rem !important;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-
-  /* About chips: ensure they wrap correctly */
-  #about-slide [style*="flex-wrap:wrap"],
-  #about-slide [style*="flex-wrap: wrap"] {
-    max-width: 100%;
-  }
+  .pf-content { left: 16px; width: calc(100% - 32px); }
+  .pf-name { font-size: clamp(.85rem, 4.5vw, 1.1rem); }
+  .pf-desc { -webkit-line-clamp: 2; font-size: .7rem; }
+  .pf-nav { left: 16px; }
+  .pf-slide .pf-item:nth-child(3) { left: 58%; }
+  .pf-slide .pf-item:nth-child(n+4) { left: calc(58% + 110px); opacity: 0; pointer-events: none; }
+  .pf-item { width: 105px; }
+  .pf-dm-wrap { gap: 6px; }
+  .pf-dm-label { display: none; } /* hide label on very small screens */
 }
 
 </style>
@@ -910,6 +1086,12 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
     <span></span><span></span><span></span>
   </button>
 
+  <!-- Dark mode toggle — global -->
+  <div class="dm-toggle-wrap" id="dm-toggle-nav" style="margin-right:4px">
+    <span class="dm-toggle-label" id="dm-label-nav">Light</span>
+    <button class="dm-toggle-btn" id="dm-btn-nav" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+  </div>
+
   <button class="nav-cta" id="nav-cta-btn">Get a Free Audit</button>
 </nav>
 
@@ -920,6 +1102,13 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
   <a href="#work-slide"     class="ham-link">Work</a>
   <a href="#contact-slide"  class="ham-link">Contact</a>
   <div class="ham-divider"></div>
+  <!-- Dark mode row inside hamburger panel -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 22px 4px">
+    <span style="font-size:.72rem;font-weight:600;letter-spacing:.06em;color:var(--ink3)">Dark Mode</span>
+    <div class="dm-toggle-wrap" style="gap:0">
+      <button class="dm-toggle-btn" id="dm-btn-ham" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+  </div>
   <button class="ham-cta">Get a Free Audit →</button>
 </div>
 
@@ -934,10 +1123,10 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
     <div style="flex:1;max-width:600px">
       <div class="eyebrow a1"><span class="eyebrow-dot"></span>Accepting New Clients — Hospitality &amp; Fitness</div>
       <h1 class="a2 blur-text" data-bt-delay="0" data-bt-by="words" data-bt-dir="top" style="font-size:clamp(2.6rem,5vw,4.6rem);font-weight:900;line-height:1.04;letter-spacing:-.03em;margin-bottom:20px;color:var(--ink)">
-        More Customers.<br/><span class="gt">More Bookings.<br class="mob-br"/> More Revenue.</span>
+        More Customers.<br/><span class="gt">More Bookings. More Revenue.</span>
       </h1>
       <p class="a3 blur-text" data-bt-delay="300" data-bt-by="words" data-bt-dir="top" style="font-size:1rem;line-height:1.82;color:var(--ink2);font-weight:400;margin-bottom:34px;max-width:460px">
-        I'm <strong style="color:var(--violet);font-weight:700">Gaurav</strong>, founder of <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I build high-converting websites and smart automations for restaurants, cafes, gyms, and guest houses. Trusted by businesses across Ireland and beyond.
+        I'm <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I build high-converting websites and smart automations for restaurants, cafes, gyms, and guest houses. Trusted by businesses across Ireland and beyond.
       </p>
       <div class="a4" style="display:flex;gap:14px;margin-bottom:44px">
         <a href="#contact-slide" class="btn-prim">Get a Free Website Audit</a>
@@ -967,7 +1156,7 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 38%,rgba(95,251,241,.12) 0%,transparent 55%),radial-gradient(ellipse at 68% 68%,rgba(250,178,255,.1) 0%,transparent 55%)"></div>
         <!-- cursor-follow spotlight -->
         <div id="about-spotlight" style="position:absolute;width:200px;height:200px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(98,0,255,.10) 0%,transparent 70%);transition:opacity .3s;opacity:0"></div>
-      <div id="about-g" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:106px;height:106px;border-radius:50%;background:linear-gradient(135deg,#5ffbf1,#fab2ff,#6200ff);display:flex;align-items:center;justify-content:center;font-size:2.6rem;font-weight:900;color:#fff;box-shadow:0 0 0 8px rgba(247,245,242,.95),0 0 0 10px rgba(98,0,255,.12),0 16px 50px rgba(98,0,255,.18);transition:transform .14s ease,box-shadow .25s ease;will-change:transform">G</div>
+      <div id="about-g" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:106px;height:106px;border-radius:50%;background:linear-gradient(135deg,#5ffbf1,#fab2ff,#6200ff);display:flex;align-items:center;justify-content:center;font-size:2.6rem;font-weight:900;color:#fff;box-shadow:0 0 0 8px rgba(247,245,242,.95),0 0 0 10px rgba(98,0,255,.12),0 16px 50px rgba(98,0,255,.18);transition:transform .14s ease,box-shadow .25s ease;will-change:transform">S</div>
         <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2.5px solid var(--violet);border-left:2.5px solid var(--violet);border-radius:2px 0 0 0"></div>
         <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:2.5px solid var(--teal);border-right:2.5px solid var(--teal);border-radius:0 2px 0 0"></div>
         <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:2.5px solid var(--teal);border-left:2.5px solid var(--teal);border-radius:0 0 0 2px"></div>
@@ -978,7 +1167,7 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
       <div class="stag">About</div>
       <h2 data-sf>Results first,<br/><span class="gt">everything else second</span></h2>
       <div class="divider"></div>
-      <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:16px">I'm <strong style="color:var(--violet);font-weight:700">Gaurav</strong>, the founder behind <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I work with hospitality and fitness businesses who need their website to actively bring in customers. Every decision I make — from layout to loading speed — is tied to one question: <strong style="color:var(--violet);font-weight:700">will this get you more bookings?</strong></p>
+      <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:16px">I'm <strong style="color:var(--violet);font-weight:700">Shaanri</strong> — I work with hospitality and fitness businesses who need their website to actively bring in customers. Every decision I make — from layout to loading speed — is tied to one question: <strong style="color:var(--violet);font-weight:700">will this get you more bookings?</strong></p>
       <p data-sf style="font-size:.93rem;line-height:1.82;color:var(--ink2);margin-bottom:26px">I've worked with restaurants, cafes, gyms, and guest houses — especially across Ireland — combining conversion-focused design with smart automation to build digital presences that fill seats, rooms, and class schedules.</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <span class="chip">Web Design</span><span class="chip">SEO</span><span class="chip">Booking Systems</span><span class="chip">Chatbots</span><span class="chip">Automation</span><span class="chip">Conversion Strategy</span><span class="chip">Speed Optimisation</span><span class="chip">Analytics</span>
@@ -1015,39 +1204,101 @@ label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-tr
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 3 — WORK
+     SLIDE 3 — WORK / PORTFOLIO CAROUSEL
 ══════════════════════════════════════════ -->
-<section id="work-slide" class="slide" style="background:var(--bg)">
-  <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px">
-    <div><div class="stag">Case Studies</div><h2 data-sf>Real businesses. <span class="gt">Real results.</span></h2><div class="divider" style="margin-bottom:0"></div></div>
-    <div style="font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">↑ ↓ Arrow keys navigate</div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1">
-    <div class="reveal" style="height:min(370px,42vh);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.05)">
-      <div style="padding:13px 18px;border-bottom:1px solid var(--border);background:var(--bg2)">
-        <span style="font-size:.63rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)">Projects (6)</span>
-      </div>
-      <div style="height:calc(100% - 46px);position:relative;overflow:hidden">
-        <div id="list-items" style="height:100%;overflow-y:auto;scrollbar-width:none"></div>
-        <div style="position:absolute;top:0;left:0;right:0;height:36px;background:linear-gradient(to bottom,#fff,transparent);pointer-events:none"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to top,#fff,transparent);pointer-events:none"></div>
-      </div>
+<section id="work-slide" class="slide">
+  <!-- Section header + dark mode toggle -->
+  <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;flex-shrink:0">
+    <div>
+      <div class="stag">Portfolio &amp; Products</div>
+      <h2 data-sf>Real projects. <span class="gt">Real results.</span></h2>
+      <div class="divider" style="margin-bottom:0"></div>
     </div>
-    <div class="reveal" style="height:min(370px,42vh);border:1.5px solid rgba(98,0,255,.15);border-radius:12px;padding:28px;position:relative;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(98,0,255,.05)">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(95,251,241,.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 90%,rgba(250,178,255,.07) 0%,transparent 55%);pointer-events:none"></div>
-      <div style="position:relative">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-          <span id="prj-emoji" style="font-size:2.4rem">🌐</span>
-          <span id="prj-year" style="font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)">2024</span>
+    <!-- Dark mode toggle (synced with nav toggle) -->
+    <div class="pf-dm-wrap">
+      <span class="dm-toggle-label" id="pf-dm-label-local">Light</span>
+      <button class="dm-toggle-btn" id="pf-dm-btn-local" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+  </div>
+
+  <!-- ── Carousel ── -->
+  <div class="pf-outer">
+    <div class="pf-container reveal" id="pf-container">
+      <div class="pf-slide" id="pf-slide">
+
+        <!-- Item 1 — off-screen left / wraps around -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">Restaurant · Dublin · 2024</div>
+            <div class="pf-name">The Copper Pot</div>
+            <div class="pf-desc">Conversion-focused restaurant site with visual storytelling &amp; integrated table booking. Reservations up 310% in 60 days.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
         </div>
-        <h3 id="prj-name" style="font-size:1.05rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px">NovaSpark — SaaS Platform</h3>
-        <div id="prj-label" style="font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:12px">UI/UX · Webflow</div>
-        <div style="width:28px;height:2px;background:linear-gradient(to right,var(--violet),var(--teal));border-radius:2px;margin-bottom:12px"></div>
-        <p id="prj-desc" style="font-size:.84rem;line-height:1.78;color:var(--ink2);margin-bottom:18px">Complete UI overhaul for a B2B analytics platform. The redesign drove a 40% increase in trial signups within the first 30 days of launch.</p>
-        <div id="prj-tags" style="display:flex;gap:7px;flex-wrap:wrap"></div>
+
+        <!-- Item 2 — ACTIVE (shown full-width) -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&auto=format&fit=crop&q=80')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">SaaS Platform · 2024</div>
+            <div class="pf-name">NovaSpark Analytics</div>
+            <div class="pf-desc">Complete UI overhaul for a B2B analytics platform — drove a 40% increase in trial signups within the first 30 days of launch.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
+        </div>
+
+        <!-- Item 3 — first side thumbnail -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=75')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">Fitness · Cork · 2024</div>
+            <div class="pf-name">IronForge Gym</div>
+            <div class="pf-desc">Mobile-first landing page with membership funnel. Enquiries up 240% in 45 days.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&auto=format&fit=crop&q=75')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">Hospitality · Galway · 2024</div>
+            <div class="pf-name">Harbour View</div>
+            <div class="pf-desc">Direct-booking site with immersive room showcases. Direct bookings grew from 15% → 52% of revenue in 3 months.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&auto=format&fit=crop&q=75')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">Wellness · Belfast · 2024</div>
+            <div class="pf-name">Bloom Wellness</div>
+            <div class="pf-desc">Full mobile-first redesign with simplified booking. Conversions up 195%. Bounce rate from 71% → 28%.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="pf-item" style="background-image:url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&auto=format&fit=crop&q=75')" loading="lazy">
+          <div class="pf-content">
+            <div class="pf-badge">Restaurant · Limerick · 2023</div>
+            <div class="pf-name">Brasserie 42</div>
+            <div class="pf-desc">Full SEO rebuild with schema markup. Page 1 for 11 local keywords. Bookings doubled in 90 days.</div>
+            <a class="pf-cta" href="#">View Project</a>
+          </div>
+        </div>
+
+      </div><!-- /.pf-slide -->
+
+      <!-- Prev / Next buttons -->
+      <div class="pf-nav">
+        <button class="pf-nav-btn pf-prev-btn" aria-label="Previous slide">◁</button>
+        <button class="pf-nav-btn pf-next-btn" aria-label="Next slide">▷</button>
       </div>
-    </div>
-  </div>
+
+      <!-- Auto-slide progress bar -->
+      <div class="pf-progress" id="pf-progress"></div>
+
+    </div><!-- /.pf-container -->
+  </div><!-- /.pf-outer -->
 </section>
 
 <!-- ══════════════════════════════════════════
@@ -1642,7 +1893,7 @@ const sfObs = new IntersectionObserver(entries => {
 document.querySelectorAll('[data-sf]').forEach(el => sfObs.observe(el));
 
 // ══════════════════════════════════════════════════
-//  ANIMATED PROJECT LIST
+//  ANIMATED PROJECT LIST (legacy — guarded, DOM removed)
 // ══════════════════════════════════════════════════
 const PROJECTS = [
   {
@@ -1691,6 +1942,7 @@ const PROJECTS = [
 let selPrj = 0;
 const listEl = document.getElementById('list-items');
 function renderList() {
+  if (!listEl) return;
   listEl.innerHTML = '';
   PROJECTS.forEach((p, i) => {
     const d = document.createElement('div');
@@ -1702,6 +1954,8 @@ function renderList() {
   });
 }
 function updateDetail(p) {
+  const nameEl = document.getElementById('prj-name');
+  if (!nameEl) return;
   document.getElementById('prj-emoji').textContent = p.emoji;
   document.getElementById('prj-year').textContent  = p.year;
   document.getElementById('prj-name').textContent  = p.name;
@@ -1720,11 +1974,13 @@ function selectPrj(i) {
   document.querySelectorAll('.litem').forEach((el, j) => el.classList.toggle('sel', j === i));
   updateDetail(PROJECTS[i]);
 }
-renderList(); updateDetail(PROJECTS[0]);
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowDown') { e.preventDefault(); selectPrj(Math.min(selPrj+1, PROJECTS.length-1)); }
-  else if (e.key === 'ArrowUp') { e.preventDefault(); selectPrj(Math.max(selPrj-1, 0)); }
-});
+if (listEl) {
+  renderList(); updateDetail(PROJECTS[0]);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); selectPrj(Math.min(selPrj+1, PROJECTS.length-1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); selectPrj(Math.max(selPrj-1, 0)); }
+  });
+}
 
 // ══════════════════════════════════════════════════
 //  CAROUSEL — slide dots + nav switching
@@ -1986,8 +2242,160 @@ window.addEventListener('scroll', () => document.getElementById('nav').classList
 })();
 
 // ══════════════════════════════════════════════════
-//  REVEAL ANIMATION
+//  GLOBAL DARK MODE — syncs all three toggles
+//  Adds .theme-ready to body so transitions only
+//  fire on user clicks, not on initial page paint.
 // ══════════════════════════════════════════════════
+(function () {
+  'use strict';
+
+  // All toggle buttons (nav + work-section + hamburger)
+  const allBtns = [
+    document.getElementById('dm-btn-nav'),
+    document.getElementById('pf-dm-btn-local'),
+    document.getElementById('dm-btn-ham')
+  ].filter(Boolean);
+
+  const allLabels = [
+    document.getElementById('dm-label-nav'),
+    document.getElementById('pf-dm-label-local')
+  ].filter(Boolean);
+
+  // Read initial state (already applied to <html> by the <head> script)
+  const isDarkNow = document.documentElement.classList.contains('dark');
+  syncUI(isDarkNow);
+
+  function syncUI(isDark) {
+    allBtns.forEach(btn  => btn.classList.toggle('on', isDark));
+    allLabels.forEach(lbl => lbl.textContent = isDark ? 'Dark' : 'Light');
+  }
+
+  function applyDark(isDark) {
+    document.documentElement.classList.toggle('dark', isDark);
+    syncUI(isDark);
+    localStorage.setItem('shaanri-dark', isDark);
+  }
+
+  allBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Enable smooth transitions from this point onward
+      document.body.classList.add('theme-ready');
+      applyDark(!document.documentElement.classList.contains('dark'));
+    });
+  });
+})();
+
+// ══════════════════════════════════════════════════
+//  PORTFOLIO CAROUSEL — next/prev shift + pf-active
+// ══════════════════════════════════════════════════
+(function () {
+  'use strict';
+
+  const pfSlide     = document.getElementById('pf-slide');
+  const pfContainer = document.getElementById('pf-container');
+  const pfProgress  = document.getElementById('pf-progress');
+  const pfNextBtn   = document.querySelector('.pf-next-btn');
+  const pfPrevBtn   = document.querySelector('.pf-prev-btn');
+
+  if (!pfSlide || !pfNextBtn || !pfPrevBtn) return;
+
+  // ── Mark the currently-active card so CSS transitions fire ──
+  function markActive() {
+    const items = pfSlide.querySelectorAll('.pf-item');
+    items.forEach((item, i) => {
+      if (i === 1) {
+        // Re-trigger animation: remove then re-add after a microtask
+        item.classList.remove('pf-active');
+        // Force reflow so the browser registers the removal
+        void item.offsetWidth;
+        item.classList.add('pf-active');
+      } else {
+        item.classList.remove('pf-active');
+      }
+    });
+  }
+
+  // ── Core shift (identical to MDJAmin reference slider) ──
+  function goNext() {
+    pfSlide.appendChild(pfSlide.querySelectorAll('.pf-item')[0]);
+    markActive();
+  }
+  function goPrev() {
+    const items = pfSlide.querySelectorAll('.pf-item');
+    pfSlide.prepend(items[items.length - 1]);
+    markActive();
+  }
+
+  // Mark active on first paint
+  markActive();
+
+  pfNextBtn.addEventListener('click', () => { goNext(); resetAutoSlide(); });
+  pfPrevBtn.addEventListener('click', () => { goPrev(); resetAutoSlide(); });
+
+  // Clicking a side thumbnail advances forward
+  pfSlide.addEventListener('click', e => {
+    const item = e.target.closest('.pf-item');
+    if (!item) return;
+    const items = Array.from(pfSlide.querySelectorAll('.pf-item'));
+    if (items.indexOf(item) >= 2) { goNext(); resetAutoSlide(); }
+  });
+
+  // ── Auto-slide every 5 s with progress bar ──
+  const AUTO_MS = 5000;
+  let autoTimer = null, progStart = null, progRaf = null;
+
+  function animateProgress(ts) {
+    if (!progStart) progStart = ts;
+    const pct = Math.min(((ts - progStart) / AUTO_MS) * 100, 100);
+    if (pfProgress) pfProgress.style.width = pct + '%';
+    if (ts - progStart < AUTO_MS) progRaf = requestAnimationFrame(animateProgress);
+  }
+  function startProgress() {
+    progStart = null;
+    cancelAnimationFrame(progRaf);
+    if (pfProgress) pfProgress.style.width = '0%';
+    progRaf = requestAnimationFrame(animateProgress);
+  }
+  function stopProgress() {
+    cancelAnimationFrame(progRaf);
+    if (pfProgress) pfProgress.style.width = '0%';
+  }
+  function startAutoSlide() {
+    stopAutoSlide();
+    startProgress();
+    autoTimer = setTimeout(() => { goNext(); startAutoSlide(); }, AUTO_MS);
+  }
+  function stopAutoSlide() {
+    clearTimeout(autoTimer);
+    autoTimer = null;
+    stopProgress();
+  }
+  function resetAutoSlide() { stopAutoSlide(); startAutoSlide(); }
+
+  // Pause on hover / focus / touch
+  pfContainer.addEventListener('mouseenter', stopAutoSlide);
+  pfContainer.addEventListener('mouseleave', startAutoSlide);
+  pfContainer.addEventListener('touchstart', stopAutoSlide, { passive: true });
+  pfContainer.addEventListener('touchend',   () => setTimeout(startAutoSlide, 2000), { passive: true });
+
+  // Start/stop when visible on screen
+  new IntersectionObserver(entries => {
+    entries[0].isIntersecting ? startAutoSlide() : stopAutoSlide();
+  }, { threshold: 0.3 }).observe(pfContainer);
+
+  // Swipe support
+  let touchStartX = 0;
+  pfContainer.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  pfContainer.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(delta) > 40) { delta < 0 ? goNext() : goPrev(); resetAutoSlide(); }
+  }, { passive: true });
+
+})();
+
+
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
 }, { threshold: 0.15 });
